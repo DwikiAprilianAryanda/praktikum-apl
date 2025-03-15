@@ -10,6 +10,7 @@ string kategoriProduk[100];
 int hargaProduk[100];
 int jumlahData = 0;
 
+
 int main() {
     string nama, nim;
     string namabenar = "lian";
