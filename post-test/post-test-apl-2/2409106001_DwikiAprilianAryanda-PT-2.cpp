@@ -3,10 +3,10 @@
 #include <iomanip>
 using namespace std;
 
-// Deklarasi array untuk menyimpan data handphone
-string kodeProduk[100];
-string namaProduk[100];
+// Deklarasi array
+string kodeNama[100][2];
 string merkProduk[100];
+string kategoriProduk[100];
 int hargaProduk[100];
 int jumlahData = 0;
 
@@ -30,7 +30,7 @@ int main() {
             break;
         } else {
             percobaan++;
-            cout << "Login gagal! Sisa percobaan: " << (3 - percobaan) << endl;
+            cout << "Yang bener dikit le. Sisa percobaan: " << (3 - percobaan) << endl;
         }
     }
     if (percobaan >= 3) {
@@ -58,15 +58,17 @@ int main() {
         switch (pilihan) {
             case 1: // Tampilkan Data
                 if (jumlahData == 0) {
-                    cout << "Tidak ada data handphone!" << endl;
+                    cout << "Masukin dulu data handphone nya" << endl;
                 } else {
                     cout << "\n=== Data Handphone ===" << endl;
-                    cout << setw(10) << "Kode" << setw(20) << "Nama Produk" << setw(15) << "Merk" << setw(15) << "Harga" << endl;
-                    cout << string(60, '-') << endl;
+                    cout << setw(10) << "Kode" << setw(20) << "Nama Produk" << setw(15) << "Merk" 
+                         << setw(20) << "Kategori" << setw(15) << "Harga" << endl;
+                    cout << string(80, '-') << endl;
                     for (int i = 0; i < jumlahData; i++) {
-                        cout << setw(10) << kodeProduk[i] 
-                             << setw(20) << namaProduk[i]
-                             << setw(15) << merkProduk[i] 
+                        cout << setw(10) << kodeNama[i][0] 
+                             << setw(20) << kodeNama[i][1]
+                             << setw(15) << merkProduk[i]
+                             << setw(20) << kategoriProduk[i] 
                              << setw(15) << hargaProduk[i] << endl;
                     }
                 }
@@ -78,12 +80,14 @@ int main() {
                 } else {
                     cout << "\n=== Tambah Data Handphone ===" << endl;
                     cout << "Masukkan Kode Produk: ";
-                    cin >> kodeProduk[jumlahData];
+                    cin >> kodeNama[jumlahData][0];
                     cout << "Masukkan Nama Produk: ";
                     cin.ignore();
-                    getline(cin, namaProduk[jumlahData]);
+                    getline(cin, kodeNama[jumlahData][1]);
                     cout << "Masukkan Merk Produk: ";
                     getline(cin, merkProduk[jumlahData]);
+                    cout << "Masukkan Kategori Produk: ";
+                    getline(cin, kategoriProduk[jumlahData]);
                     cout << "Masukkan Harga: ";
                     cin >> hargaProduk[jumlahData];
                     jumlahData++;
@@ -98,12 +102,14 @@ int main() {
                     cin >> kode;
                     bool ditemukan = false;
                     for (int i = 0; i < jumlahData; i++) {
-                        if (kodeProduk[i] == kode) {
+                        if (kodeNama[i][0] == kode) {
                             cout << "Masukkan Nama Produk baru: ";
                             cin.ignore();
-                            getline(cin, namaProduk[i]);
+                            getline(cin, kodeNama[i][1]);
                             cout << "Masukkan Merk Produk: ";
                             getline(cin, merkProduk[i]);
+                            cout << "Masukkan Kategori Produk baru: ";
+                            getline(cin, kategoriProduk[i]);
                             cout << "Masukkan Harga baru: ";
                             cin >> hargaProduk[i];
                             cout << "Data berhasil diubah!" << endl;
@@ -124,11 +130,12 @@ int main() {
                     cin >> kode;
                     bool ditemukan = false;
                     for (int i = 0; i < jumlahData; i++) {
-                        if (kodeProduk[i] == kode) {
+                        if (kodeNama[i][0] == kode) {
                             for (int j = i; j < jumlahData - 1; j++) {
-                                kodeProduk[j] = kodeProduk[j + 1];
-                                namaProduk[j] = namaProduk[j + 1];
+                                kodeNama[j][0] = kodeNama[j + 1][0];
+                                kodeNama[j][1] = kodeNama[j + 1][1];
                                 merkProduk[j] = merkProduk[j + 1];
+                                kategoriProduk[j] = kategoriProduk[j + 1];
                                 hargaProduk[j] = hargaProduk[j + 1];
                             }
                             jumlahData--;
