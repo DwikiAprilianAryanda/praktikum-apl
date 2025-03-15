@@ -30,7 +30,7 @@ int main() {
             break;
         } else {
             percobaan++;
-            cout << "Login gagal! Sisa percobaan: " << (3 - percobaan) << endl;
+            cout << "Waduh salah! Sisa percobaan: " << (3 - percobaan) << endl;
         }
     }
     if (percobaan >= 3) {
@@ -58,7 +58,7 @@ int main() {
         switch (pilihan) {
             case 1: // Tampilkan Data
                 if (jumlahData == 0) {
-                    cout << "Tidak ada data handphone!" << endl;
+                    cout << "Masukkan dulu data produk handphone nya le" << endl;
                 } else {
                     cout << "\n=== Data Handphone ===" << endl;
                     cout << setw(10) << "Kode" << setw(20) << "Nama Produk" << setw(15) << "Merk" << setw(15) << "Harga" << endl;
