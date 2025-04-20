@@ -32,12 +32,6 @@ void tampilHeader(string judul) {
     cout << "==================================" << endl;
 }
 
-// Fungsi rekursif untuk menghitung faktorial
-int hitungFaktorial(int n) {
-    if (n <= 1) return 1;
-    return n * hitungFaktorial(n - 1);
-}
-
 // Fungsi overloading untuk mencari index produk dengan pointer
 int cariProduk(User* user, string kode) {
     for (int i = 0; i < user->jumlahProduk; i++) {
@@ -101,10 +95,32 @@ void ubahData(User& user) {
     tampilDataProduk(ptrUser);
     if (ptrUser->jumlahProduk == 0) return;
     
-    string kode;
-    cout << "\nMasukkan Kode Produk yang akan diubah: ";
-    cin >> kode;
-    int idx = cariProduk(ptrUser, kode);
+    int pilihan;
+    cout << "\nCari produk berdasarkan:" << endl;
+    cout << "1. Kode Produk" << endl;
+    cout << "2. Nama dan Merk" << endl;
+    cout << "Pilih opsi (1-2): ";
+    cin >> pilihan;
+
+    int idx = -1;
+    if (pilihan == 1) {
+        string kode;
+        cout << "Masukkan Kode Produk: ";
+        cin >> kode;
+        idx = cariProduk(ptrUser, kode);
+    } else if (pilihan == 2) {
+        string nama, merk;
+        cout << "Masukkan Nama Produk: ";
+        cin.ignore();
+        getline(cin, nama);
+        cout << "Masukkan Merk Produk: ";
+        getline(cin, merk);
+        idx = cariProduk(ptrUser, nama, merk);
+    } else {
+        cout << "Pilihan tidak valid!" << endl;
+        return;
+    }
+
     if (idx != -1) {
         cout << "Masukkan Nama Produk baru: ";
         cin.ignore();
@@ -117,7 +133,7 @@ void ubahData(User& user) {
         cin >> ptrUser->daftarProduk[idx].harga;
         cout << "Data berhasil diubah!" << endl;
     } else {
-        cout << "Kode produk tidak ditemukan!" << endl;
+        cout << "Produk tidak ditemukan!" << endl;
     }
 }
 
@@ -161,14 +177,15 @@ void beliProduk(User* admin, User* user) {
     }
 }
 
-// Fungsi untuk login
-int login(string nama, string nim) {
-    for (int i = 0; i < jumlahUser; i++) {
-        if (daftarUser[i].nama == nama && daftarUser[i].nim == nim) {
-            return i;
-        }
+// Fungsi rekursif untuk login
+int login(string nama, string nim, int indeks = 0) {
+    if (indeks >= jumlahUser) {
+        return -1;
     }
-    return -1;
+    if (daftarUser[indeks].nama == nama && daftarUser[indeks].nim == nim) {
+        return indeks;
+    }
+    return login(nama, nim, indeks + 1);
 }
 
 // Prosedur untuk registrasi
